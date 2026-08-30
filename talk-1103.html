@@ -128,6 +128,8 @@
     font-size: 11.5px; font-weight: 600; line-height: 1.7; letter-spacing: 0.01em;
   }
   .tag-lang { background: #F1F2F4; color: #4A4F57; }
+  .tag-lang-en { background: #E6F2F3; color: #235F67; }
+  .tag-lang-ko { background: #F7EDE1; color: #7A4A22; }
   .tag-online { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 0 6px; }
   .tag-next { background: var(--accent); color: #FFFFFF; }
 
@@ -243,7 +245,7 @@
 
   <footer class="foot">
     <span>Schedule and speakers are subject to change.</span>
-    <span>KAIST College of AI · Last updated <span id="built">2026-08-30 16:26 KST</span></span>
+    <span>KAIST College of AI · Last updated <span id="built">2026-08-30 16:32 KST</span></span>
   </footer>
 </div>
 
@@ -262,9 +264,12 @@ const i = detailed.findIndex(t => tid(t) === TID);
 const t = detailed[i];
 
 // 주관학과(AIF/AIC/AIS/AX)는 표시하지 않는다 — 청중 입장에서 의미 없는 내부 구분
+function langClass(lang) {
+  return lang === "English" ? " tag-lang-en" : lang === "Korean" ? " tag-lang-ko" : "";
+}
 function tagsHtml(t) {
   const tags = [];
-  if (t.lang) tags.push('<span class="tag tag-lang">' + esc(t.lang) + '</span>');
+  if (t.lang) tags.push('<span class="tag tag-lang' + langClass(t.lang) + '">' + esc(t.lang) + '</span>');
   if (t.mode === "Online") tags.push('<span class="tag tag-online">Online</span>');
   return tags.join("");
 }
